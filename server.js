@@ -10,6 +10,7 @@ require('./config/connect');
 const app = express();
 app.use(express.json());
 
+const jwt = require('jsonwebtoken');
 
 app.use( '/reservation' , reservationRoute);
 app.use( '/user' , userRoute);

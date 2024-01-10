@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Rsv = require('../models/reservation');
+const jwt = require('jsonwebtoken');
 
 const moment = require('moment');
 
@@ -81,6 +82,27 @@ router.delete('/delres/:id', async(req, res)=>{
         res.status(400).send(error)
     }
 })
+
+
+// condition directeur
+router.put('/updir/:id', async (req, res) => {
+  try {
+    const token = req.header('Authorization');
+    const decoded = jwt.verify(token, 'votre_clé_secrète');
+
+    if (decoded.role !== 'directeur') {
+      return res.status(403).send('Accès refusé. Seul le directeur peut modifier les réservations.');
+    }
+    const id = req.params.id;
+    const newData = req.body;
+    const updated = await Rsv.findByIdAndUpdate({ _id: id }, newData);
+
+    res.status(200).send(updated);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
 
 
 module.exports = router;

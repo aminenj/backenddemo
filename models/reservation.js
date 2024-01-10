@@ -21,7 +21,11 @@ const RsvSchema = new mongoose.Schema({
         required: true,
         default: () => moment().toDate()
     },
-    disponibilite: {
+    description: {
+        type: String,
+        required: true
+    },
+    sujet: {
         type: String,
         required: true
     }

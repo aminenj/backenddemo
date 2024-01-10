@@ -14,7 +14,7 @@ router.post('/register' , async (req, res)=>{
     data = req.body;
 
     usr = new User(data);
-    
+    é
 
     salt = bcrypt.genSaltSync(10);
     cryptedPass = await bcrypt.hashSync( data.password , salt);
